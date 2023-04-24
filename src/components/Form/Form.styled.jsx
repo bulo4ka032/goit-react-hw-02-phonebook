@@ -10,6 +10,7 @@ max-width: 400px;
 
 export const SubmitBtn = styled.button`
 position: absolute;
+top: 80px;
 right: 100px;
 padding: 10px 20px;
 outline: none;
