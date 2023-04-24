@@ -3,7 +3,7 @@ import { Contacts } from './Contacts/Contacts';
 import { ContactForm } from './Form/Form';
 import { Filter } from './Filter/Filter';
 import { Notify } from 'notiflix';
-import { PhoneBook, ContactsTitle, ContactsWrapper } from 'App.styled';
+import { PhoneBook, ContactsTitle, ContactsWrapper } from 'components/App.styled';
 
 export class App extends Component {
   state = {
