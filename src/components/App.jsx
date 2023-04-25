@@ -4,6 +4,7 @@ import { ContactForm } from './Form/Form';
 import { Filter } from './Filter/Filter';
 import { Notify } from 'notiflix';
 import { PhoneBook, ContactsTitle, ContactsWrapper } from 'components/App.styled';
+import { customAlphabet } from 'nanoid';
 
 export class App extends Component {
   state = {
@@ -16,11 +17,15 @@ export class App extends Component {
     filter: '',
   };
 
-  handleSubmit = evt => {
+  handleSubmit = data => {
+    const nanoid = customAlphabet('1234567890', 3);
+    const id = 'id-' + nanoid();
+    data = {id, ...data};
+    console.log(data);
     this.setState(({ contacts }) =>
-      contacts.find(contact => contact.name === evt.name)
-        ? Notify.warning(`${evt.name} is already in contact`)
-        : { contacts: [evt, ...contacts] });
+      contacts.find(contact => contact.name === data.name)
+        ? Notify.warning(`${data.name} is already in contact`)
+        : { contacts: [data, ...contacts] });
   };
 
   handleFilter = evt => {
@@ -34,11 +39,14 @@ export class App extends Component {
     }));
   };
 
+  handleFilteredContacts = (contacts) => {
+   return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
+    );
+  }
   render() {
     const { contacts, filter } = this.state;
-    const filteredContacts = contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
+    const filteredContacts = this.handleFilteredContacts(contacts);
 
     return (
       <PhoneBook>
